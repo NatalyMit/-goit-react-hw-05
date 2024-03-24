@@ -1,0 +1,9 @@
+.list {
+  padding: 24px 30px;
+  list-style: circle;
+}
+.item {
+  color: #fff;
+  font-size: 20px;
+  font-weight: 500;
+}
