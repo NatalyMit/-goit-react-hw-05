@@ -11,7 +11,7 @@ const MovieList = ({ filmsList }) => {
         {filmsList.map(({ id, title, poster_path, vote_average }) => (
           <li key={id} className={style.item}>
             <Link to={`/movies/${id}`} state={{ from: location }}>
-              <MovieItem dataFilm={(title, poster_path, vote_average)} />
+              <MovieItem dataFilm={{ title, poster_path, vote_average }} />
             </Link>
           </li>
         ))}
