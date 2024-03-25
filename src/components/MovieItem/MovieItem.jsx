@@ -1,6 +1,6 @@
 import css from './MovieItem.module.css';
 import notFoundImage from '../../assets/image/image-not-found.jpg';
-const MovieItem = ({ dataFilm: { title, poster_path, vote_average } }) => {
+const MovieItem = ({ title, poster_path, vote_average }) => {
   const imageUrl = `https://image.tmdb.org/t/p/w500${poster_path}`;
   const voteAverage = Number(vote_average).toFixed(1);
   return (

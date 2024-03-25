@@ -8,10 +8,10 @@ const MovieList = ({ filmsList }) => {
   return (
     <div className={style.containerList}>
       <ul className={style.list}>
-        {filmsList.map(film => (
-          <li key={film.id} className={style.item}>
-            <Link to={`/movies/${film.id}`} state={{ from: location }}>
-              <MovieItem dataFilm={film} />
+        {filmsList.map(({ id, title, poster_path, vote_average }) => (
+          <li key={id} className={style.item}>
+            <Link to={`/movies/${id}`} state={{ from: location }}>
+              <MovieItem dataFilm={(title, poster_path, vote_average)} />
             </Link>
           </li>
         ))}
