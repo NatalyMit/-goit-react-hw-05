@@ -57,7 +57,7 @@ const MoviesPage = () => {
           }}
         />
         {loading && <Loader />}
-        {searchResults.length !== 0 && <MovieList filmsList={searchResults} />}
+        {searchResults.length !== 0 && <MovieList movies={searchResults} />}
       </section>
     </main>
   );
