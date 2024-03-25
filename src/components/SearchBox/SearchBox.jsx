@@ -1,43 +1,34 @@
-import { useState } from 'react';
-import css from './SearchBox.module.css';
-import { FiSearch } from 'react-icons/fi';
-import toast, { Toaster } from 'react-hot-toast';
+import { Field, Form, Formik } from 'formik';
+import style from './SearchBox.module.css';
+import toast from 'react-hot-toast';
 
 const SearchBox = ({ onSubmit }) => {
-  const [query, setQuery] = useState('');
-  const handleChange = e => {
-    setQuery(e.target.value);
-  };
-  const handleSubmit = e => {
-    e.prevetDefault();
-    const formatQuery = query.trim().toLowerCase();
-
-    if (!formatQuery === '') {
+  const handleSubmit = (values, actions) => {
+    const formattedSearch = values.search.trim().toLowerCase();
+    if (!values.search.trim()) {
       toast.error('The search field cannot be empty!');
       return;
     }
-    onSubmit(formatQuery);
-    setQuery('');
+    onSubmit(formattedSearch);
+    actions.resetForm();
   };
-
   return (
-    <div>
-      <form className={css.form} onSubmit={handleSubmit}>
-        <input
-          className={css.input}
-          type="text"
-          autoComplete="off"
-          autoFocus
-          placeholder="Search images and photos"
-          name="search"
-          onChange={handleChange}
-          value={query}
-        />
-        <button className={css.button} type="submit">
-          <FiSearch size="16px" />
-        </button>
-      </form>
-      <Toaster position="top-center" reverseOrder={false} />
+    <div className={style.searchThumb}>
+      <Formik initialValues={{ search: '' }} onSubmit={handleSubmit}>
+        <Form className={style.form}>
+          <Field
+            className={style.input}
+            type="text"
+            name="search"
+            autoComplete="off"
+            autoFocus
+            placeholder="Search films"
+          />
+          <button className={style.button} type="submit">
+            Search
+          </button>
+        </Form>
+      </Formik>
     </div>
   );
 };

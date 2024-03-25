@@ -45,9 +45,10 @@ const MovieDetailsPage = () => {
       {loader && <Loader />}
       {error && <ErrorMessage />}
       {movie && (
-        <div>
-          <div>
+        <section className={css.detailSect}>
+          <div className={css.detailBox}>
             <img
+              className={css.movieDetailsImg}
               src={
                 movie.poster_path
                   ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
@@ -55,13 +56,17 @@ const MovieDetailsPage = () => {
               }
               alt={movie.original_title}
             />
-            <div>
-              <h2>{movie.original_title}</h2>
-              <p>{movie.tagline}</p>
-              <p>Release date: {formatDate(movie.release_date)}</p>
+            <div className={css.detailBoxInfo}>
+              <h2 className={css.movieDetailsTitle}>{movie.original_title}</h2>
+              <p className={css.movieDetailsTagline}>{movie.tagline}</p>
+              <p className={css.movieDetailsText}>
+                Release date: {formatDate(movie.release_date)}
+              </p>
               {movieReiting !== '0' && movieReiting !== null && (
                 <div>
-                  <p>Reiting: {movieReiting}</p>
+                  <p className={css.movieDetailsText}>
+                    Reiting: {movieReiting}
+                  </p>
                   {movieReiting < 6 ? (
                     <RiStarSFill fill="yellow" />
                   ) : (
@@ -69,11 +74,12 @@ const MovieDetailsPage = () => {
                   )}
                 </div>
               )}
-              <h3>Overview of movie</h3>
-              <p>{movie.overview}</p>
-              <p>Duration:{movie.runtime}min.</p>
-              <h3>Genres</h3>
-              <ul>
+              <h3 className={css.movieDetailsTagline}>Overview of movie</h3>
+              <p className={css.movieDetailsText}>{movie.overview}</p>
+              <h3 className={css.movieDetailsTagline}>Duration:</h3>
+              <p className={css.movieDetailsText}>{movie.runtime}min.</p>
+              <h3 className={css.movieDetailsTagline}>Genres</h3>
+              <ul className={css.detailBox}>
                 {movie.genres.map(genre => (
                   <li key={genre.id}>{genre.name}</li>
                 ))}
@@ -91,7 +97,7 @@ const MovieDetailsPage = () => {
           <Suspense>
             <Outlet />
           </Suspense>
-        </div>
+        </section>
       )}
     </div>
   );

@@ -1,3 +1,41 @@
+.detailSect {
+  padding: 0 16px;
+}
+.detailBox {
+  display: flex;
+  gap: 40px;
+  align-items: center;
+}
+.detailBoxInfo {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+}
+.movieDetailsImg {
+  width: 300px;
+  margin-bottom: 20px;
+}
+.movieDetailsTitle {
+  font-size: 30px;
+  text-align: center;
+  line-height: 1.2;
+  margin-bottom: 10px;
+}
+
+.movieDetailsTagline {
+  font-size: 20px;
+  line-height: 1.2;
+
+  margin-bottom: 5px;
+}
+.movieDetailsText {
+  font-size: 17px;
+  line-height: 1.2;
+
+  margin-bottom: 5px;
+}
 .navMore {
   display: flex;
   justify-content: center;

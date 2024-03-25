@@ -1,75 +1,65 @@
-// import { useEffect, useState } from 'react';
-// import { useSearchParams } from 'react-router-dom';
-// import { getMoviesSearch } from '../../service/apiService';
-// import toast, { Toaster } from 'react-hot-toast';
-import css from './MoviesPage.module.css';
-import Loader from '../../components/Loader/Loader';
-import SearchBox from '../../components/SearchBox/SearchBox';
+import { useSearchParams } from 'react-router-dom';
 import MovieList from '../../components/MovieList/MovieList';
-import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
-import getMoviesByQuery from '../../hook/getMoviesByQuery';
+import SearchBox from '../../components/SearchBox/SearchBox';
+import { getFilmsSearch } from '../../service/apiService';
+import { useEffect, useState } from 'react';
+import Loader from '../../components/Loader/Loader';
+import toast, { Toaster } from 'react-hot-toast';
+import style from './MoviesPage.module.css';
 
 const MoviesPage = () => {
-  const { searchMovies, loader, error, onHandleSubmit } = getMoviesByQuery();
-  // const [searchMovies, setSearchMovies] = useState(null);
-  // const [searchParams, setSearchParams] = useSearchParams();
-  // const [loader, setLoader] = useState(false);
-  // const [error, setError] = useState(null);
-  // const query = searchParams.get('query');
+  const [searchResults, setSearchResults] = useState([]);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const searchQuery = searchParams.get('search');
 
-  // useEffect(() => {
-  //   if (query === '' || query === null) return;
-  //   setLoader(true);
+  const [loading, setLoading] = useState(false);
 
-  //   const searchData = async () => {
-  //     try {
-  //       const { data } = await getMoviesSearch(query);
-  //       console.log(data.results);
-  //       if (data.results.length === 0) {
-  //         toast(
-  //           'Sorry, we have not found the films for your request. Try to write it differently.',
-  //           {
-  //             duration: 5000,
-  //           }
-  //         );
-  //       } else {
-  //         toast.success(`Wow! We found films`);
-  //       }
-  //       setSearchMovies(data.results);
-  //     } catch (error) {
-  //       setError(error);
-  //     } finally {
-  //       setLoader(false);
-  //     }
-  //   };
-  //   searchData(query);
-  // }, [query]);
+  useEffect(() => {
+    setSearchResults([]);
+    const searchData = async (query, page) => {
+      try {
+        setLoading(true);
 
-  // const onSubmit = value => {
-  //   // if (value === query) {
-  //   //   return;
-  //   // }
-  //   setSearchMovies(null);
-  //   setError(false);
-  //   setSearchParams({ query: value });
-  // };
+        const response = await getFilmsSearch(query, page);
+        setSearchResults(response.results);
+
+        if (!response.total_results) {
+          toast(
+            'Sorry, we have not found the films for your request. Try to write it differently.',
+            {
+              duration: 5000,
+            }
+          );
+        } else {
+          toast.success(`Wow! We found ${response.total_results} films`);
+        }
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (searchQuery) {
+      searchData(searchQuery);
+    }
+  }, [searchQuery]);
 
   return (
-    <div>
-      <div className={css.moviesSearch}>
-        <SearchBox onSubmit={onHandleSubmit} />
-        {/* <Toaster
+    <main>
+      <section className={style.moviesSearch}>
+        <SearchBox onSubmit={query => setSearchParams({ search: query })} />
+        <Toaster
           position="top-right"
           reverseOrder={false}
           toastOptions={{
-            className: css.toastTextCenter,
+            className: style.toastTextCenter,
           }}
-        /> */}
-        {loader && <Loader />}
-        {error && <ErrorMessage />}
-        {searchMovies.length > 0 && <MovieList movies={searchMovies} />}
-      </div>
-    </div>
+        />
+        {loading && <Loader />}
+        {searchResults.length !== 0 && <MovieList filmsList={searchResults} />}
+      </section>
+    </main>
   );
 };
 
