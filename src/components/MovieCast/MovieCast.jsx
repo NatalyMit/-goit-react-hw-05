@@ -4,6 +4,7 @@ import Loader from '../Loader/Loader';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import { getMoviesDetails } from '../../service/apiService';
 import MovieCastItem from '../MovieCastItem/MovieCastItem';
+import css from './MovieCast.module.css';
 
 const MovieCast = () => {
   const { movieId } = useParams();
@@ -18,6 +19,7 @@ const MovieCast = () => {
         setCredits([]);
         const dataCredits = await getMoviesDetails(movieId, '/credits');
         setCredits(dataCredits.cast);
+        console.log(dataCredits.cast);
       } catch (error) {
         setError(error);
       } finally {
@@ -31,10 +33,10 @@ const MovieCast = () => {
       {loader && <Loader />}
       {error && <ErrorMessage />}
       {credits && (
-        <ul>
+        <ul className={css.castList}>
           {credits.map(cast => (
-            <li key={cast.id}>
-              <MovieCastItem dataCast={cast} />
+            <li className={css.castItem} key={cast.id}>
+              <MovieCastItem {...cast} />
             </li>
           ))}
         </ul>

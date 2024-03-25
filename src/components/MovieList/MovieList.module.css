@@ -1,9 +1,18 @@
 .list {
   padding: 24px 30px;
-  list-style: circle;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-bottom: 20px;
 }
 .item {
   color: #fff;
   font-size: 20px;
   font-weight: 500;
+  transition: transform 0.5s;
+}
+.item:hover {
+  transform: scale(1.1);
 }

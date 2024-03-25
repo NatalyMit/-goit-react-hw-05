@@ -16,10 +16,24 @@ export const getTrendingMovies = async () => {
   return response.data.results;
 };
 
-// Search movie     https://api.themoviedb.org/3/search/movie?query=batman&include_adult=false&language=en-US&page=1
+// export const getMoviesSearch = async query => {
+//   const options = (url, query) => {
+//     return {
+//       method: 'GET',
+//       url: `https://api.themoviedb.org/${url}`,
+//       params: { query: `${query}`, include_adult: 'false', language: 'en-US' },
+//       headers: {
+//         accept: 'application/json',
+//         Authorization: `Bearer ${TOKEN_URL}`,
+//       },
+//     };
+//   };
+//   const data = await axios.request(options(`3/search/movie`, query));
 
-export const getMoviesSearch = async (query, page = 1) => {
-  const url = `https://api.themoviedb.org/3/search/movie?query=${query}&include_adult=false&language=en-US&page=${page}`;
+//   return data;
+// };
+export const getMoviesSearch = async query => {
+  const url = `https://api.themoviedb.org/3/search/movie?query=${query}&include_adult=false&language=en-US&page=1`;
 
   const options = {
     headers: {
@@ -27,7 +41,7 @@ export const getMoviesSearch = async (query, page = 1) => {
     },
   };
   try {
-    const { data } = await axios.get(url, options);
+    const data = await axios.get(url, options);
     return data;
   } catch (error) {
     console.log(error.message);

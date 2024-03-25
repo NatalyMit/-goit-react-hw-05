@@ -1,6 +1,6 @@
 import imageNotFound from '../../assets/image/image-not-found.jpg';
 
-const MovieCastItem = ({ dataCast: { profile_path, name, character } }) => {
+const MovieCastItem = ({ profile_path, name, character }) => {
   const imageUrl = `https://image.tmdb.org/t/p/w500/${profile_path}`;
   return (
     <div>

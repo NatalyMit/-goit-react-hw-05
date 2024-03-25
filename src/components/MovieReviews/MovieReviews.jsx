@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import Loader from '../Loader/Loader';
 import MovieReviewsItem from '../MovieReviewsItem/MovieReviewsItem';
+import css from './MovieReviews.module.css';
 
 const MovieReviews = () => {
   const { movieId } = useParams();
@@ -31,12 +32,16 @@ const MovieReviews = () => {
     <div>
       {loader && <Loader />}
       {error && <ErrorMessage />}
-      {!loader && reviews !== null && reviews.length === 0 && <ErrorMessage />}
+      {!loader && reviews !== null && reviews.length === 0 && (
+        <p
+          className={css.reviewNotFound}
+        >{`We don't have any reviews for this movie`}</p>
+      )}
       {reviews && (
         <ul>
           {reviews.map(review => (
-            <li key={review.id}>
-              <MovieReviewsItem dataReviews={review} />
+            <li className={css.reviewItem} key={review.id}>
+              <MovieReviewsItem {...review} />
             </li>
           ))}
         </ul>

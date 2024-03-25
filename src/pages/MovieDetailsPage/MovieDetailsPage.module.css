@@ -1,0 +1,10 @@
+.navMore {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  border-top: 1px solid #0e0d0d;
+  border-bottom: 1px solid #0e0d0d;
+  padding: 20px 0;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}

@@ -1,0 +1,17 @@
+.authorName {
+  font-size: 20px;
+  font-weight: 600;
+  color: #3e0909;
+  margin-bottom: 10px;
+}
+.timeToWrite {
+  color: #3e0909;
+  margin-bottom: 10px;
+}
+.boxToReview {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: flex-start;
+  border-bottom: 1px solid #0e0d0d;
+}
